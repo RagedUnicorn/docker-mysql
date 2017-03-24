@@ -1,0 +1,17 @@
+version: '3'
+services:
+  mysql:
+    build: .
+    image: com.ragedunicorn/mysql:1.0-dev
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    stdin_open: true
+    tty: true
+    entrypoint: /bin/bash
+    labels:
+      com.ragedunicorn.mysql.environment: "dev"
+      com.ragedunicorn.mysql.description: "MySQL database container"
+volumes:
+  mysql_data: {}

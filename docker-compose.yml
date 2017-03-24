@@ -1,0 +1,14 @@
+version: '3'
+services:
+  mysql:
+    build: .
+    image: com.ragedunicorn/mysql:1.0-stable
+    volumes:
+      - mysql_data:/var/lib/mysql
+    expose:
+      - "3306"
+    labels:
+      com.ragedunicorn.mysql.environment: "prod"
+      com.ragedunicorn.mysql.description: "MySQL database container"
+volumes:
+  mysql_data: {}
