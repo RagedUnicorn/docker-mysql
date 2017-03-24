@@ -1,6 +1,6 @@
 # docker-mysql
 
-> A docker container for MYSQL based on Ubuntu
+> A docker container for MySQL based on Ubuntu
 
 This container is intended to build a base for providing a database to an application stack.
 
@@ -77,7 +77,7 @@ configuration. This will also allow external clients to connect to the database.
 docker-compose -f docker-compose-dev.yml up -d
 ```
 
-By default the launchscript `/docker-entrypoint.sh` will not be used to start the MYSQL process. Instead the container will be setup to keep `stdin_open` open and allocating a pseudo `tty`. This allows for connecting to a shell and work on the container. MYSQL itself can still be started with `/docker-entrypoint.sh`.
+By default the launchscript `/docker-entrypoint.sh` will not be used to start the MySQL process. Instead the container will be setup to keep `stdin_open` open and allocating a pseudo `tty`. This allows for connecting to a shell and work on the container. MySQL itself can be started with `./docker-entrypoint.sh`.
 
 
 ## License
