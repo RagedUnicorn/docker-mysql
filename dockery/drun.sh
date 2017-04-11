@@ -12,8 +12,7 @@ DOCKER_MYSQL_DATA_VOLUME="mysql_data"
 DOCKER_MYSQL_ID=0
 
 # get absolute path to script and change context to script folder
-SCRIPT=$(readlink -f "$0")
-SCRIPTPATH=$(dirname "${SCRIPT}")
+SCRIPTPATH="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 cd "${SCRIPTPATH}"
 
 # check if there is already an image created

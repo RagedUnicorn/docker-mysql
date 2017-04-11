@@ -11,8 +11,7 @@ DOCKER_MYSQL_NAME="mysql"
 DOCKER_MYSQL_DATA_VOLUME="mysql_data"
 
 # get absolute path to script and change context to script folder
-SCRIPT=$(readlink -f "$0")
-SCRIPTPATH=$(dirname "${SCRIPT}")
+SCRIPTPATH="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 cd "${SCRIPTPATH}"
 
 echo "$(date) [INFO]: Building container: ${DOCKER_MYSQL_NAME}"
