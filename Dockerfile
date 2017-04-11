@@ -35,7 +35,6 @@ RUN \
     dirmngr="${DIRMNGR_VERSION}" \
     ca-certificates="${CA_CERTIFICATES_VERSION}" \
     wget="${WGET_VERSION}" && \
-  rm -rf /var/lib/apt/lists/* && \
   dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" && \
   wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch" && \
   wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc" && \
@@ -46,7 +45,8 @@ RUN \
   rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc && \
   chmod +x /usr/local/bin/gosu && \
   gosu nobody true && \
-  apt-get purge -y --auto-remove ca-certificates wget
+  apt-get purge -y --auto-remove ca-certificates wget && \
+  rm -rf /var/lib/apt/lists/*
 
 # re-synchronize package index, install mysql and cleanup cache
 RUN \
