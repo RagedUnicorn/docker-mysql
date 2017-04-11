@@ -1,6 +1,6 @@
 # docker-mysql
 
-> A docker container for MySQL based on Ubuntu
+> A docker base to build a container for MySQL
 
 This container is intended to build a base for providing a database to an application stack.
 
@@ -65,8 +65,7 @@ Most of the configuration can be changed with the `my.cnf` and `mysqld_charset.c
 
 #### Default user
 
-First time starting up the container a user based on the values of `MYSQL_APP_USER` and `MYSQL_APP_PASSWORD` environmental values is created. This user is also allowed to make external connections and can be used by other services to interact with the database. To modify the setup of this users have a look into `conf/user.sql`.
-
+First time starting up the container a user based on the values of `MYSQL_APP_USER` and `MYSQL_APP_PASSWORD` environmental values is created. This user is also allowed to make external connections and can be used by other services to interact with the database. To modify the setup of this user have a look into `conf/user.sql`.
 
 ## Development
 
