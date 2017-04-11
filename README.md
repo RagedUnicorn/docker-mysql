@@ -78,8 +78,7 @@ docker-compose -f docker-compose-dev.yml up -d
 
 By default the launchscript `/docker-entrypoint.sh` will not be used to start the MySQL process. Instead the container will be setup to keep `stdin_open` open and allocating a pseudo `tty`. This allows for connecting to a shell and work on the container. MySQL itself can be started with `./docker-entrypoint.sh`.
 
-
-## License
+## License:
 
 Copyright (c) 2017 Michael Wiesendanger
 
