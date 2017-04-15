@@ -13,11 +13,9 @@ function create_data_dir {
 }
 
 function create_run_dir {
-  if [ ! -d "${MYSQL_RUN_DIR}" ]; then
-    echo "$(date) [INFO]: Creating run directory ${MYSQL_RUN_DIR} and setting permissions"
-    mkdir -p "${MYSQL_RUN_DIR}"
-    chown -R "${MYSQL_USER}":"${MYSQL_USER}" "${MYSQL_RUN_DIR}"
-  fi
+  echo "$(date) [INFO]: Creating run directory ${MYSQL_RUN_DIR} and setting permissions"
+  mkdir -p "${MYSQL_RUN_DIR}"
+  chown -R "${MYSQL_USER}":"${MYSQL_USER}" "${MYSQL_RUN_DIR}"
 }
 
 function set_init_done {
