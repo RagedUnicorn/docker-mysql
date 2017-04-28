@@ -27,9 +27,9 @@ docker-compose down
 
 In the dockery folder are some scripts that help out avoiding retyping long docker commands but are mostly intended for playing around with the container.
 
-#### Build Image
+#### Build image
 
-The build script builds a container with a defined name
+The build script builds an image with a defined name
 
 ```
 sh dockery/dbuild.sh
