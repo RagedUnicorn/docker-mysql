@@ -41,6 +41,9 @@ function init {
       exit 1
     fi
 
+    # initialize database
+    /usr/sbin/mysqld --initialize-insecure --user="${MYSQL_USER}"
+
     # do not listen to external connections during setup. This helps while orchestarting with
     # other containers. They will only receive a response after the initialistation is finished.
     /usr/bin/mysqld_safe --bind-address=localhost --basedir="${MYSQL_BASE_DIR}" --datadir="${MYSQL_DATA_DIR}" &
