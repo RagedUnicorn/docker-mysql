@@ -1,7 +1,6 @@
 FROM ubuntu:bionic
 
-LABEL com.ragedunicorn.maintainer="Michael Wiesendanger <michael.wiesendanger@gmail.com>" \
-  com.ragedunicorn.version="1.0"
+LABEL com.ragedunicorn.maintainer="Michael Wiesendanger <michael.wiesendanger@gmail.com>"
 
 #     __  _____  _______ ____    __
 #    /  |/  /\ \/ / ___// __ \  / /
