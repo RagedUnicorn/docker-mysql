@@ -1,8 +1,8 @@
-version: '3'
+version: '3.4'
 services:
   mysql:
     build: .
-    image: com.ragedunicorn/mysql:1.0-dev
+    image: ragedunicorn/mysql:1.0.0-dev
     volumes:
       - mysql_data:/var/lib/mysql
     ports:
