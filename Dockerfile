@@ -1,4 +1,4 @@
-FROM ubuntu:zesty
+FROM ubuntu:bionic
 
 LABEL com.ragedunicorn.maintainer="Michael Wiesendanger <michael.wiesendanger@gmail.com>" \
   com.ragedunicorn.version="1.0"
@@ -11,11 +11,13 @@ LABEL com.ragedunicorn.maintainer="Michael Wiesendanger <michael.wiesendanger@gm
 
 # software versions
 ENV \
-  MYSQL_MAJOR_VERSION=5.7.17-0ubuntu1 \
-  WGET_VERSION=1.18-2ubuntu1 \
-  CA_CERTIFICATES_VERSION=20161130 \
-  DIRMNGR_VERSION=2.1.15-1ubuntu7 \
-  GOSU_VERSION=1.10
+  MYSQL_MAJOR_VERSION=5.7.22-0ubuntu18.04.1 \
+  WGET_VERSION=1.19.4-1ubuntu2.1 \
+  CA_CERTIFICATES_VERSION=20180409 \
+  DIRMNGR_VERSION=2.2.4-1ubuntu1 \
+  GOSU_VERSION=1.10 \
+  GPG_VERSION=2.2.4-1ubuntu1 \
+  GPG_AGENT_VERSION=2.2.4-1ubuntu1
 
 ENV \
   MYSQL_USER=mysql \
@@ -29,12 +31,14 @@ ENV \
 # explicitly set user/group IDs
 RUN groupadd -r "${MYSQL_USER}" --gid=999 && useradd -r -g "${MYSQL_USER}" --uid=999 "${MYSQL_USER}"
 
-# install gosu
 RUN \
+  set -ex; \
   apt-get update && apt-get install -y --no-install-recommends \
     dirmngr="${DIRMNGR_VERSION}" \
     ca-certificates="${CA_CERTIFICATES_VERSION}" \
-    wget="${WGET_VERSION}" && \
+    wget="${WGET_VERSION}" \
+    gpg="${GPG_VERSION}" \
+    gpg-agent="${GPG_AGENT_VERSION}" && \
   dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" && \
   wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch" && \
   wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc" && \

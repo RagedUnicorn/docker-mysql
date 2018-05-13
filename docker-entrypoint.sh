@@ -30,7 +30,7 @@ function init {
     # check if run directory exists
     create_run_dir
     # start mysql in foreground with base- and datadir set
-    exec gosu ${MYSQL_USER} /usr/bin/mysqld_safe --basedir="${MYSQL_BASE_DIR}" --datadir="${MYSQL_DATA_DIR}"
+    exec gosu ${MYSQL_USER} /usr/bin/mysqld_safe --datadir="${MYSQL_DATA_DIR}"
   else
     echo "$(date) [INFO]: First time setup - running init script"
     create_data_dir
@@ -41,15 +41,12 @@ function init {
       exit 1
     fi
 
-    # initialize database
-    /usr/sbin/mysqld --initialize-insecure --user="${MYSQL_USER}"
-
     # do not listen to external connections during setup. This helps while orchestarting with
     # other containers. They will only receive a response after the initialistation is finished.
-    /usr/bin/mysqld_safe --bind-address=localhost --basedir="${MYSQL_BASE_DIR}" --datadir="${MYSQL_DATA_DIR}" &
+    /usr/bin/mysqld_safe --bind-address=localhost --datadir="${MYSQL_DATA_DIR}" --user="${MYSQL_USER}" &
 
     LOOP_LIMIT=13
-    i=0
+    i=1
 
     while true
     do
@@ -62,7 +59,7 @@ function init {
       sleep 5
 
       # use initial password of mysql
-      mysql -uroot -proot -e "status" > /dev/null 2>&1 && break
+      mysql -uroot -p${MYSQL_ROOT_PASSWORD} -e "status" > /dev/null 2>&1 && break
       i=$((i + 1))
     done
 
@@ -87,13 +84,16 @@ function init {
 
     mysqladmin -uroot -p${MYSQL_ROOT_PASSWORD} shutdown
 
+    sleep 5 # wait for mysql to shutdown
+
     unset "${MYSQL_ROOT_PASSWORD}"
     unset "${MYSQL_APP_USER}"
     unset "${MYSQL_APP_PASSWORD}"
 
     set_init_done
-    # start mysql in foreground with base- and datadir set
-    exec gosu ${MYSQL_USER} /usr/bin/mysqld_safe --basedir="${MYSQL_BASE_DIR}" --datadir="${MYSQL_DATA_DIR}"
+
+    # start mysql in foreground with datadir set
+    exec gosu ${MYSQL_USER} /usr/bin/mysqld_safe --datadir="${MYSQL_DATA_DIR}"
   fi
 }
 
