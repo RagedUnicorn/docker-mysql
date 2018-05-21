@@ -9,6 +9,6 @@ services:
       - "3306"
     labels:
       com.ragedunicorn.mysql.environment: "prod"
-      com.ragedunicorn.mysql.description: "MySQL database container"
+      com.ragedunicorn.mysql.description: "MySQL"
 volumes:
   mysql_data: {}
