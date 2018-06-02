@@ -48,7 +48,7 @@ RUN \
   rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc && \
   chmod +x /usr/local/bin/gosu && \
   gosu nobody true && \
-  apt-get purge -y --auto-remove ca-certificates wget && \
+  apt-get purge -y --auto-remove ca-certificates wget dirmngr gpg gpg-agent && \
   rm -rf /var/lib/apt/lists/*
 
 # re-synchronize package index, install mysql and cleanup cache
