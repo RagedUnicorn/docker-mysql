@@ -9,13 +9,14 @@ LABEL com.ragedunicorn.maintainer="Michael Wiesendanger <michael.wiesendanger@gm
 # /_/  /_/   /_//____/\___\_\/_____/
 
 # software versions
-ARG MYSQL_MAJOR_VERSION=5.7.22-0ubuntu18.04.1
-ARG WGET_VERSION=1.19.4-1ubuntu2.1
-ARG CA_CERTIFICATES_VERSION=20180409
-ARG DIRMNGR_VERSION=2.2.4-1ubuntu1.1
-ARG GOSU_VERSION=1.10
-ARG GPG_VERSION=2.2.4-1ubuntu1.1
-ARG GPG_AGENT_VERSION=2.2.4-1ubuntu1.1
+ENV \
+  MYSQL_MAJOR_VERSION=5.7.22-0ubuntu18.04.1 \
+  WGET_VERSION=1.19.4-1ubuntu2.1 \
+  CA_CERTIFICATES_VERSION=20180409 \
+  DIRMNGR_VERSION=2.2.4-1ubuntu1.1 \
+  GOSU_VERSION=1.10 \
+  GPG_VERSION=2.2.4-1ubuntu1.1 \
+  GPG_AGENT_VERSION=2.2.4-1ubuntu1.1
 
 ENV \
   MYSQL_USER=mysql \
