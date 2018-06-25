@@ -69,9 +69,9 @@ COPY docker-entrypoint.sh /
 
 RUN \
   chmod 644 /etc/mysql/my.cnf && \
-  chown mysql /etc/mysql/my.cnf && \
+  chown "${MYSQL_USER}" /etc/mysql/my.cnf && \
   chmod 644 /etc/mysql/mysqld_charset.cnf && \
-  chown mysql /etc/mysql/mysqld_charset.cnf && \
+  chown "${MYSQL_USER}" /etc/mysql/mysqld_charset.cnf && \
   chmod 755 docker-entrypoint.sh
 
 EXPOSE 3306
