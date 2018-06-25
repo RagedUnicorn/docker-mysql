@@ -8,6 +8,13 @@ LABEL com.ragedunicorn.maintainer="Michael Wiesendanger <michael.wiesendanger@gm
 #  / /  / /   / /___/ / /_/ / / /___
 # /_/  /_/   /_//____/\___\_\/_____/
 
+# image args
+ARG MYSQL_USER=mysql
+ARG MYSQL_GROUP=mysql
+ARG MYSQL_APP_USER=app
+ARG MYSQL_APP_PASSWORD=app
+ARG MYSQL_ROOT_PASSWORD=root
+
 # software versions
 ENV \
   MYSQL_MAJOR_VERSION=5.7.22-0ubuntu18.04.1 \
@@ -19,14 +26,14 @@ ENV \
   GPG_AGENT_VERSION=2.2.4-1ubuntu1.1
 
 ENV \
-  MYSQL_USER=mysql \
-  MYSQL_GROUP=mysql \
+  MYSQL_USER="${MYSQL_USER}" \
+  MYSQL_GROUP="${MYSQL_GROUP}" \
   MYSQL_BASE_DIR=/var/lib/mysql \
   MYSQL_DATA_DIR=/var/lib/mysql \
   MYSQL_RUN_DIR=/var/run/mysqld \
-  MYSQL_APP_USER=app \
-  MYSQL_APP_PASSWORD=app \
-  MYSQL_ROOT_PASSWORD=root
+  MYSQL_APP_USER="${MYSQL_APP_USER}" \
+  MYSQL_APP_PASSWORD="${MYSQL_APP_PASSWORD}" \
+  MYSQL_ROOT_PASSWORD="${MYSQL_ROOT_PASSWORD}"
 
 # explicitly set user/group IDs
 RUN groupadd -g 9999 -r "${MYSQL_USER}" && useradd -u 9999 -r -g "${MYSQL_GROUP}" "${MYSQL_USER}"
