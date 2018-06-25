@@ -19,6 +19,7 @@ ARG GPG_AGENT_VERSION=2.2.4-1ubuntu1.1
 
 ENV \
   MYSQL_USER=mysql \
+  MYSQL_GROUP=mysql \
   MYSQL_BASE_DIR=/var/lib/mysql \
   MYSQL_DATA_DIR=/var/lib/mysql \
   MYSQL_RUN_DIR=/var/run/mysqld \
@@ -27,7 +28,7 @@ ENV \
   MYSQL_ROOT_PASSWORD=root
 
 # explicitly set user/group IDs
-RUN groupadd -r "${MYSQL_USER}" --gid=999 && useradd -r -g "${MYSQL_USER}" --uid=999 "${MYSQL_USER}"
+RUN groupadd -g 9999 -r "${MYSQL_USER}" && useradd -u 9999 -r -g "${MYSQL_GROUP}" "${MYSQL_USER}"
 
 RUN \
   set -ex; \

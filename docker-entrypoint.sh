@@ -9,13 +9,13 @@ function create_data_dir {
   echo "$(date) [INFO]: Creating data directory ${MYSQL_DATA_DIR} and setting permissions"
   mkdir -p "${MYSQL_DATA_DIR}"
   chmod -R 0700 "${MYSQL_DATA_DIR}"
-  chown -R "${MYSQL_USER}":"${MYSQL_USER}" "${MYSQL_DATA_DIR}"
+  chown -R "${MYSQL_GROUP}":"${MYSQL_USER}" "${MYSQL_DATA_DIR}"
 }
 
 function create_run_dir {
   echo "$(date) [INFO]: Creating run directory ${MYSQL_RUN_DIR} and setting permissions"
   mkdir -p "${MYSQL_RUN_DIR}"
-  chown -R "${MYSQL_USER}":"${MYSQL_USER}" "${MYSQL_RUN_DIR}"
+  chown -R "${MYSQL_GROUP}":"${MYSQL_USER}" "${MYSQL_RUN_DIR}"
 }
 
 function set_init_done {
