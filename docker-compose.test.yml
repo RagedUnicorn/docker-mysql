@@ -1,0 +1,56 @@
+version: '3.6'
+services:
+  container-test:
+    image: ragedunicorn/container-test:${CONTAINER_STRUCTURE_TEST_VERSION}-stable
+    volumes:
+        - ./test/:/test
+        - /var/run/docker.sock:/var/run/docker.sock
+    command: ["--image", "ragedunicorn/mysql:${MYSQL_TAG_VERSION}-stable", "--config", "/test/mysql_test.yml"]
+    labels:
+      com.ragedunicorn.container-test.environment: "test"
+      com.ragedunicorn.container-test.description: "Google Container Structure Test"
+  container-test-metadata:
+    image: ragedunicorn/container-test:${CONTAINER_STRUCTURE_TEST_VERSION}-stable
+    volumes:
+        - ./test/:/test
+        - /var/run/docker.sock:/var/run/docker.sock
+    command: ["--image", "ragedunicorn/mysql:${MYSQL_TAG_VERSION}-stable", "--config", "/test/mysql_metadata_test.yml"]
+    labels:
+      com.ragedunicorn.container-test.environment: "test"
+      com.ragedunicorn.container-test.description: "Google Container Structure Test"
+  container-test-command:
+    image: ragedunicorn/container-test:${CONTAINER_STRUCTURE_TEST_VERSION}-stable
+    volumes:
+        - ./test/:/test
+        - /var/run/docker.sock:/var/run/docker.sock
+    command: ["--image", "ragedunicorn/mysql:${MYSQL_TAG_VERSION}-stable", "--config", "/test/mysql_command_test.yml"]
+    labels:
+      com.ragedunicorn.container-test.environment: "test"
+      com.ragedunicorn.container-test.description: "Google Container Structure Test"
+  container-dev-test:
+    image: ragedunicorn/container-test:${CONTAINER_STRUCTURE_TEST_VERSION}-stable
+    volumes:
+        - ./test/:/test
+        - /var/run/docker.sock:/var/run/docker.sock
+    command: ["--image", "ragedunicorn/mysql:${MYSQL_TAG_VERSION}-dev", "--config", "/test/mysql_test.yml"]
+    labels:
+      com.ragedunicorn.container-test.environment: "test"
+      com.ragedunicorn.container-test.description: "Google Container Structure Test"
+  container-dev-test-metadata:
+    image: ragedunicorn/container-test:${CONTAINER_STRUCTURE_TEST_VERSION}-stable
+    volumes:
+        - ./test/:/test
+        - /var/run/docker.sock:/var/run/docker.sock
+    command: ["--image", "ragedunicorn/mysql:${MYSQL_TAG_VERSION}-dev", "--config", "/test/mysql_metadata_test.yml"]
+    labels:
+      com.ragedunicorn.container-test.environment: "test"
+      com.ragedunicorn.container-test.description: "Google Container Structure Test"
+  container-dev-test-command:
+    image: ragedunicorn/container-test:${CONTAINER_STRUCTURE_TEST_VERSION}-stable
+    volumes:
+        - ./test/:/test
+        - /var/run/docker.sock:/var/run/docker.sock
+    command: ["--image", "ragedunicorn/mysql:${MYSQL_TAG_VERSION}-dev", "--config", "/test/mysql_command_test.yml"]
+    labels:
+      com.ragedunicorn.container-test.environment: "test"
+      com.ragedunicorn.container-test.description: "Google Container Structure Test"

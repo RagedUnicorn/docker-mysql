@@ -1,0 +1,20 @@
+schemaVersion: 2.0.0
+
+commandTests:
+- name: 'gosu_installation'
+  command: "which"
+  args: ["gosu"]
+  expectedOutput: ["/usr/local/bin/gosu"]
+  exitCode: 0
+- name: 'mysqld_safe_installation'
+  command: "which"
+  args: ["mysqld_safe"]
+  expectedOutput: ["/usr/bin/mysqld_safe"]
+  exitCode: 0
+- name: 'mysql_version'
+  command: "mysql"
+  args: ["--version"]
+  expectedOutput: [
+    "mysql  Ver 14\\.14 Distrib 5\\.7\\.22.*Linux.\\(x86_64\\)"
+  ]
+  exitCode: 0

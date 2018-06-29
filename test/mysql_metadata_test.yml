@@ -1,0 +1,22 @@
+schemaVersion: 2.0.0
+
+metadataTest:
+  env:
+    - key: 'MYSQL_USER'
+      value: 'mysql'
+    - key: 'MYSQL_GROUP'
+      value: 'mysql'
+    - key: 'MYSQL_APP_USER'
+      value: 'app'
+    - key: 'MYSQL_BASE_DIR'
+      value: '/var/lib/mysql'
+    - key: 'MYSQL_DATA_DIR'
+      value: '/var/lib/mysql'
+    - key: 'MYSQL_RUN_DIR'
+      value: '/var/run/mysqld'
+  labels:
+    - key: 'com.ragedunicorn.maintainer'
+      value: 'Michael Wiesendanger <michael.wiesendanger@gmail.com>'
+  exposedPorts: ["3306"]
+  volumes: ["/var/lib/mysql"]
+  entrypoint: ["/docker-entrypoint.sh"]
