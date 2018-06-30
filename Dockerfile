@@ -61,8 +61,7 @@ RUN \
 
 # re-synchronize package index, install mysql and cleanup cache
 RUN \
-  echo "mysql-server mysql-server/root_password password ${MYSQL_ROOT_PASSWORD}" | debconf-set-selections && \
-  echo "mysql-server mysql-server/root_password_again password ${MYSQL_ROOT_PASSWORD}" | debconf-set-selections && \
+  export DEBIAN_FRONTEND=noninteractive && \
   apt-get update && apt-get install -y --no-install-recommends mysql-server="${MYSQL_MAJOR_VERSION}" && \
   rm -rf /var/lib/apt/lists/*
 

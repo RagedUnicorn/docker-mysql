@@ -41,6 +41,14 @@ function init {
       exit 1
     fi
 
+    # handle potential empty datadir. Mysql is populating the datadir while getting installed.
+    # However that data is lost when the image is pulled and the container started. Because of
+    # this the folder needs to be initialzed before proceeding. Note that the root password is set
+    # at a later point
+    if [ -z "$(ls -A /var/lib/mysql)" ]; then
+       mysqld --initialize-insecure --datadir="${MYSQL_DATA_DIR}" --user="${MYSQL_USER}"
+    fi
+
     # do not listen to external connections during setup. This helps while orchestarting with
     # other containers. They will only receive a response after the initialistation is finished.
     /usr/bin/mysqld_safe --bind-address=localhost --datadir="${MYSQL_DATA_DIR}" --user="${MYSQL_USER}" &
@@ -59,12 +67,12 @@ function init {
       sleep 5
 
       # use initial password of mysql
-      mysql -uroot -p${MYSQL_ROOT_PASSWORD} -e "status" > /dev/null 2>&1 && break
+      mysql -uroot -e "status" > /dev/null 2>&1 && break
       i=$((i + 1))
     done
 
     # use default root password to set new root password
-    echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';" | mysql -uroot -proot
+    echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';" | mysql -uroot
 
     # create new user and grant remote access
     echo "$(date) [INFO]: Creating new user ${MYSQL_APP_USER}"
