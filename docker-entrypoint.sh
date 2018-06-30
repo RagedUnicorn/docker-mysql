@@ -5,6 +5,10 @@
 # abort when trying to use unset variable
 set -o nounset
 
+mysql_root_password="/run/secrets/com.ragedunicorn.mysql.root_password"
+mysql_app_user="/run/secrets/com.ragedunicorn.mysql.app_user"
+mysql_app_user_password="/run/secrets/com.ragedunicorn.mysql.app_user_password"
+
 function create_data_dir {
   echo "$(date) [INFO]: Creating data directory ${MYSQL_DATA_DIR} and setting permissions"
   mkdir -p "${MYSQL_DATA_DIR}"
@@ -41,6 +45,24 @@ function init {
       exit 1
     fi
 
+    if [ -f "${mysql_app_user}" ] && [ -f "${mysql_app_user_password}" ] && [ -f "${mysql_root_password}" ]; then
+      echo "$(date) [INFO]: Found docker secrets - using secrets to setup mysql"
+
+      mysql_root_password="$(cat ${mysql_root_password})"
+      mysql_app_user="$(cat ${mysql_app_user})"
+      mysql_app_user_password="$(cat ${mysql_app_user_password})"
+    else
+      echo "$(date) [INFO]: No docker secrets found - using environment variables"
+
+      mysql_root_password="${MYSQL_ROOT_PASSWORD}"
+      mysql_app_user="${MYSQL_APP_USER}"
+      mysql_app_user_password="${MYSQL_APP_PASSWORD}"
+    fi
+
+    unset "${MYSQL_ROOT_PASSWORD}"
+    unset "${MYSQL_APP_USER}"
+    unset "${MYSQL_APP_PASSWORD}"
+
     # handle potential empty datadir. Mysql is populating the datadir while getting installed.
     # However that data is lost when the image is pulled and the container started. Because of
     # this the folder needs to be initialzed before proceeding. Note that the root password is set
@@ -72,31 +94,26 @@ function init {
     done
 
     # use default root password to set new root password
-    echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';" | mysql -uroot
+    echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '${mysql_root_password}';" | mysql -uroot
 
     # create new user and grant remote access
-    echo "$(date) [INFO]: Creating new user ${MYSQL_APP_USER}"
-    sed -e "s/{{password}}/${MYSQL_APP_PASSWORD}/g" \
-      -e "s/{{user}}/${MYSQL_APP_USER}/g" /home/user.sql | mysql -uroot -p${MYSQL_ROOT_PASSWORD};
+    echo "$(date) [INFO]: Creating new user ${mysql_app_user}"
+    sed -e "s/{{password}}/${mysql_app_user_password}/g" \
+      -e "s/{{user}}/${mysql_app_user}/g" /home/user.sql | mysql -uroot -p${mysql_root_password};
 
     if [ $? -ne 0 ]; then
       echo "$(date) [ERROR]: Failed to create new user";
       exit 1
     else
-      echo "$(date) [INFO]: Created user:"
-      echo "$(date) [INFO]: Username: ${MYSQL_APP_USER}"
-      echo "$(date) [INFO]: Password: ${MYSQL_APP_PASSWORD}"
+      echo "$(date) [INFO]: Created new app user:"
+      echo "$(date) [INFO]: Username: ${mysql_app_user}"
     fi
 
     echo "$(date) [INFO]: Finished database setup"
 
-    mysqladmin -uroot -p${MYSQL_ROOT_PASSWORD} shutdown
+    mysqladmin -uroot -p${mysql_root_password} shutdown
 
     sleep 5 # wait for mysql to shutdown
-
-    unset "${MYSQL_ROOT_PASSWORD}"
-    unset "${MYSQL_APP_USER}"
-    unset "${MYSQL_APP_PASSWORD}"
 
     set_init_done
 
