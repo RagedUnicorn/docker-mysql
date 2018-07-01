@@ -103,8 +103,7 @@ function init {
       echo "$(date) [ERROR]: Failed to create new user";
       exit 1
     else
-      echo "$(date) [INFO]: Created new app user:"
-      echo "$(date) [INFO]: Username: ${mysql_app_user}"
+      echo "$(date) [INFO]: Created new user: ${mysql_app_user}"
     fi
 
     echo "$(date) [INFO]: Finished database setup"
