@@ -67,7 +67,7 @@ function init {
     # However that data is lost when the image is pulled and the container started. Because of
     # this the folder needs to be initialzed before proceeding. Note that the root password is set
     # at a later point
-    if [ -z "$(ls -A /var/lib/mysql)" ]; then
+    if [ -z "$(ls -A ${MYSQL_DATA_DIR})" ]; then
        mysqld --initialize-insecure --datadir="${MYSQL_DATA_DIR}" --user="${MYSQL_USER}"
     fi
 
