@@ -3,8 +3,8 @@
 > This document explains how a new release is created for this docker container
 
 * Update docker-compose files
-  * Update docker-compose.dev.yml image to new version
-  * Update docker-compose.yml image to new version
+  * Update .env image tag version
+  * Manually update docker-compose.stack.yml image to new version (stack does not support the .env file)
 * Create a new git tag and push it
   * `git tag vx.x.x`
   * `git push origin --tags`
@@ -19,4 +19,5 @@
   * Tag and push stable version as latest version (default image for docker hub)
     * `docker tag ragedunicorn/mysql:x.x.x-stable ragedunicorn/mysql:latest`
     * `docker push ragedunicorn/mysql:latest`
+  * Note: docker stack image is not pushed to docker hub currently
 * Update docker hub description links
