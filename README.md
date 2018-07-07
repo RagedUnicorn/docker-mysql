@@ -42,7 +42,7 @@ echo "app_user_password" | docker secret create com.ragedunicorn.mysql.app_user_
 docker stack deploy --compose-file=docker-compose.stack.yml [stackname]
 ```
 
-For a production deployment a stack should be deployed. The secret will then be taken into account and MariaDB will be setup accordingly.
+For a production deployment a stack should be deployed. Secrets will then be taken into account and MySQL will be setup accordingly.
 
 ## Dockery
 
