@@ -71,6 +71,9 @@ COPY conf/my.cnf conf/mysqld_charset.cnf /etc/mysql/
 # add init scripts for mysql
 COPY conf/user.sql /home/user.sql
 
+# add healthcheck script
+COPY docker-healthcheck.sh /
+
 # add launch script
 COPY docker-entrypoint.sh /
 
@@ -79,7 +82,8 @@ RUN \
   chown "${MYSQL_USER}" /etc/mysql/my.cnf && \
   chmod 644 /etc/mysql/mysqld_charset.cnf && \
   chown "${MYSQL_USER}" /etc/mysql/mysqld_charset.cnf && \
-  chmod 755 docker-entrypoint.sh
+  chmod 755 docker-entrypoint.sh && \
+  chmod 755 docker-healthcheck.sh
 
 EXPOSE 3306
 
