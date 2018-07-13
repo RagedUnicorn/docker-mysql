@@ -2,8 +2,7 @@
 # @author Michael Wiesendanger <michael.wiesendanger@gmail.com>
 # @description launch script for mysql
 
-# abort when trying to use unset variable
-set -o nounset
+set -euo pipefail
 
 mysql_root_password="/run/secrets/com.ragedunicorn.mysql.root_password"
 mysql_app_user="/run/secrets/com.ragedunicorn.mysql.app_user"

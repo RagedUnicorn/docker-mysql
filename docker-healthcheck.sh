@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# abort when trying to use unset variable
-set -eo nounset
+set -euo pipefail
 
 if mysqladmin ping -h localhost; then
 	exit 0
