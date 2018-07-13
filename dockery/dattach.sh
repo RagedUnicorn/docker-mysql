@@ -3,7 +3,7 @@
 # @description script for attaching to running docker-mysql container
 
 # abort when trying to use unset variable
-set -o nounset
+set -euo pipefail
 
 # variable setup
 DOCKER_MYSQL_NAME="mysql"
