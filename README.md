@@ -88,6 +88,10 @@ Most of the configuration can be changed with the `my.cnf` and `mysqld_charset.c
 
 First time starting up the container a user based on the values of `MYSQL_APP_USER` and `MYSQL_APP_PASSWORD` environmental values is created. This user is also allowed to make external connections and can be used by other services to interact with the database. To modify the setup of this user have a look into `conf/user.sql`.
 
+## Healthcheck
+
+The production and the stack image supports a simple healthcheck whether the container is healthy or not. This can be configured inside `docker-compose.yml` or `docker-compose.stack.yml`
+
 ## Test
 
 To do basic tests of the structure of the container use the `docker-compose.test.yml` file.
