@@ -2,7 +2,6 @@
 # @author Michael Wiesendanger <michael.wiesendanger@gmail.com>
 # @description run script for docker-mysql container
 
-# abort when trying to use unset variable
 set -euo pipefail
 
 # variable setup
