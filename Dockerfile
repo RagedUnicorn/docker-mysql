@@ -65,11 +65,11 @@ RUN \
   apt-get update && apt-get install -y --no-install-recommends mysql-server="${MYSQL_MAJOR_VERSION}" && \
   rm -rf /var/lib/apt/lists/*
 
-# add custom mysql conf
-COPY conf/my.cnf conf/mysqld_charset.cnf /etc/mysql/
+# add custom mysql config
+COPY config/my.cnf config/mysqld_charset.cnf /etc/mysql/
 
 # add init scripts for mysql
-COPY conf/user.sql /home/user.sql
+COPY config/user.sql /home/user.sql
 
 # add healthcheck script
 COPY docker-healthcheck.sh /
