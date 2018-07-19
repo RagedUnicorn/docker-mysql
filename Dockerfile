@@ -28,12 +28,13 @@ ENV \
 ENV \
   MYSQL_USER="${MYSQL_USER}" \
   MYSQL_GROUP="${MYSQL_GROUP}" \
-  MYSQL_BASE_DIR=/var/lib/mysql \
-  MYSQL_DATA_DIR=/var/lib/mysql \
-  MYSQL_RUN_DIR=/var/run/mysqld \
   MYSQL_APP_USER="${MYSQL_APP_USER}" \
   MYSQL_APP_PASSWORD="${MYSQL_APP_PASSWORD}" \
-  MYSQL_ROOT_PASSWORD="${MYSQL_ROOT_PASSWORD}"
+  MYSQL_ROOT_PASSWORD="${MYSQL_ROOT_PASSWORD}" \
+  MYSQL_BASE_DIR=/var/lib/mysql \
+  MYSQL_DATA_DIR=/var/lib/mysql \
+  MYSQL_RUN_DIR=/var/run/mysqld
+
 
 # explicitly set user/group IDs
 RUN groupadd -g 9999 -r "${MYSQL_USER}" && useradd -u 9999 -r -g "${MYSQL_GROUP}" "${MYSQL_USER}"
