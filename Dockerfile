@@ -35,7 +35,6 @@ ENV \
   MYSQL_DATA_DIR=/var/lib/mysql \
   MYSQL_RUN_DIR=/var/run/mysqld
 
-
 # explicitly set user/group IDs
 RUN groupadd -g 9999 -r "${MYSQL_USER}" && useradd -u 9999 -r -g "${MYSQL_GROUP}" "${MYSQL_USER}"
 
@@ -46,7 +45,8 @@ RUN \
     ca-certificates="${CA_CERTIFICATES_VERSION}" \
     wget="${WGET_VERSION}" \
     gpg="${GPG_VERSION}" \
-    gpg-agent="${GPG_AGENT_VERSION}" && \
+    gpg-agent="${GPG_AGENT_VERSION}" \
+    mysql-server="${MYSQL_MAJOR_VERSION}" && \
   dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" && \
   wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch" && \
   wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc" && \
@@ -58,12 +58,6 @@ RUN \
   chmod +x /usr/local/bin/gosu && \
   gosu nobody true && \
   apt-get purge -y --auto-remove ca-certificates wget dirmngr gpg gpg-agent && \
-  rm -rf /var/lib/apt/lists/*
-
-# re-synchronize package index, install mysql and cleanup cache
-RUN \
-  export DEBIAN_FRONTEND=noninteractive && \
-  apt-get update && apt-get install -y --no-install-recommends mysql-server="${MYSQL_MAJOR_VERSION}" && \
   rm -rf /var/lib/apt/lists/*
 
 # add custom mysql config
