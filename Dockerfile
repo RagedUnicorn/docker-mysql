@@ -33,7 +33,8 @@ ENV \
   MYSQL_ROOT_PASSWORD="${MYSQL_ROOT_PASSWORD}" \
   MYSQL_BASE_DIR=/var/lib/mysql \
   MYSQL_DATA_DIR=/var/lib/mysql \
-  MYSQL_RUN_DIR=/var/run/mysqld
+  MYSQL_RUN_DIR=/var/run/mysqld \
+  GOSU_GPGKEY="B42F6819007F00F88E364FD4036A9C25BF357DD4"
 
 # explicitly set user/group IDs
 RUN groupadd -g 9999 -r "${MYSQL_USER}" && useradd -u 9999 -r -g "${MYSQL_GROUP}" "${MYSQL_USER}"
@@ -52,7 +53,14 @@ RUN \
   wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc" && \
   export GNUPGHOME && \
   GNUPGHOME="$(mktemp -d)" && \
-  gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 && \
+  for server in \
+    hkp://p80.pool.sks-keyservers.net:80 \
+    hkp://keyserver.ubuntu.com:80 \
+    hkp://pgp.mit.edu:80 \
+  ;do \
+    echo "Fetching GPG key $GOSU_GPGKEY from $server"; \
+    gpg --keyserver "$server" --recv-keys "$GOSU_GPGKEY" && found=yes && break; \
+  done; \
   gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu && \
   rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc && \
   chmod +x /usr/local/bin/gosu && \
