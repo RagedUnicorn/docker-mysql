@@ -64,11 +64,11 @@ RUN \
     hkp://keyserver.ubuntu.com:80 \
     hkp://pgp.mit.edu:80 \
   ;do \
-    echo "Fetching GPG key $GOSU_GPGKEY from $server"; \
-    gpg --keyserver "$server" --recv-keys "$GOSU_GPGKEY" && found=yes && break; \
+    echo "Fetching GPG key ${GOSU_GPGKEY} from $server"; \
+    gpg --keyserver "$server" --recv-keys "${GOSU_GPGKEY}" && found=yes && break; \
   done && \
   gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu && \
-  rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc && \
+  rm -rf "${GNUPGHOME}" /usr/local/bin/gosu.asc && \
   chmod +x /usr/local/bin/gosu && \
   gosu nobody true && \
   apt-get purge -y --auto-remove ca-certificates wget dirmngr gpg gpg-agent && \
