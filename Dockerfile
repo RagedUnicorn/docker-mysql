@@ -60,7 +60,7 @@ RUN \
   ;do \
     echo "Fetching GPG key $GOSU_GPGKEY from $server"; \
     gpg --keyserver "$server" --recv-keys "$GOSU_GPGKEY" && found=yes && break; \
-  done; \
+  done && \
   gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu && \
   rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc && \
   chmod +x /usr/local/bin/gosu && \
