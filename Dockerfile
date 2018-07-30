@@ -49,8 +49,14 @@ RUN \
     gpg-agent="${GPG_AGENT_VERSION}" \
     mysql-server="${MYSQL_MAJOR_VERSION}" && \
   dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" && \
-  wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch" && \
-  wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc" && \
+  if ! wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-${dpkgArch}"; then \
+    echo >&2 "Error: Failed to download Gosu binary for '${dpkgArch}'"; \
+    exit 1; \
+  fi && \
+  if ! wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-${dpkgArch}.asc"; then \
+    echo >&2 "Error: Failed to download transport armor file for Gosu - '${dpkgArch}'"; \
+    exit 1; \
+  fi && \
   export GNUPGHOME && \
   GNUPGHOME="$(mktemp -d)" && \
   for server in \
