@@ -40,7 +40,7 @@ function init {
     create_run_dir
 
     if [ $? -ne 0 ]; then
-      echo "$(date) [ERROR]: Failed to initialize mysqld - aborting...";
+      echo "$(date) [ERROR]: Failed to initialize mysqld - aborting..."
       exit 1
     fi
 
@@ -99,7 +99,7 @@ function init {
       -e "s/{{user}}/${mysql_app_user}/g" /home/user.sql | mysql -uroot -p"${mysql_root_password}";
 
     if [ $? -ne 0 ]; then
-      echo "$(date) [ERROR]: Failed to create new user";
+      echo "$(date) [ERROR]: Failed to create new user"
       exit 1
     else
       echo "$(date) [INFO]: Created new user: ${mysql_app_user}"
