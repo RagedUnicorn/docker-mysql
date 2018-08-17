@@ -74,17 +74,17 @@ function init {
     # other containers. They will only receive a response after the initialistation is finished.
     /usr/bin/mysqld_safe --bind-address=localhost --datadir="${MYSQL_DATA_DIR}" --user="${MYSQL_USER}" &
 
-    LOOP_LIMIT=13
+    loop_limit=13
     i=1
 
     while true
     do
-      if [ ${i} -eq ${LOOP_LIMIT} ]; then
+      if [ ${i} -eq ${loop_limit} ]; then
         echo "$(date) [ERROR]: Timeout error, failed to start MYSQL server"
         exit 1
       fi
 
-      echo "$(date) [INFO]: Waiting for confirmation of MYSQL service startup, trying ${i}/${LOOP_LIMIT}..."
+      echo "$(date) [INFO]: Waiting for confirmation of MYSQL service startup, trying ${i}/${loop_limit}..."
       sleep 5
       mysql -uroot -e "status" > /dev/null 2>&1 && break
       i=$((i + 1))
