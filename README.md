@@ -4,6 +4,10 @@
 
 This container is intended to build a base for providing a database to an application stack.
 
+## Version
+
+* MySQL 5.7
+
 ### Start container
 
 The container can be easily started with `docker-compose` command.
