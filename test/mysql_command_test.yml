@@ -15,6 +15,6 @@ commandTests:
   command: "mysql"
   args: ["--version"]
   expectedOutput: [
-    "mysql  Ver 14\\.14 Distrib 5\\.7\\.23.*Linux.\\(x86_64\\)"
+    "mysql  Ver 14\\.14 Distrib 5\\.7\\.25.*Linux.\\(x86_64\\)"
   ]
   exitCode: 0
