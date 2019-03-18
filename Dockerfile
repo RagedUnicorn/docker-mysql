@@ -1,4 +1,4 @@
-FROM ubuntu:bionic
+FROM ubuntu:disco
 
 LABEL com.ragedunicorn.maintainer="Michael Wiesendanger <michael.wiesendanger@gmail.com>"
 
@@ -17,13 +17,13 @@ ARG MYSQL_ROOT_PASSWORD=root
 
 # software versions
 ENV \
-  MYSQL_MAJOR_VERSION=5.7.25-0ubuntu0.18.04.2 \
-  WGET_VERSION=1.19.4-1ubuntu2.1 \
-  CA_CERTIFICATES_VERSION=20180409 \
-  DIRMNGR_VERSION=2.2.4-1ubuntu1.2 \
+  MYSQL_MAJOR_VERSION=5.7.25-1 \
+  WGET_VERSION=1.20.1-1ubuntu3 \
+  CA_CERTIFICATES_VERSION=20190110 \
+  DIRMNGR_VERSION=2.2.12-1ubuntu3 \
   GOSU_VERSION=1.10 \
-  GPG_VERSION=2.2.4-1ubuntu1.2 \
-  GPG_AGENT_VERSION=2.2.4-1ubuntu1.2
+  GPG_VERSION=2.2.12-1ubuntu3 \
+  GPG_AGENT_VERSION=2.2.12-1ubuntu3
 
 ENV \
   MYSQL_USER="${MYSQL_USER}" \
